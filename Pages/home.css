@@ -280,6 +280,7 @@ transition:.5s ease;
     background-color:rgba(0, 0, 0, 0.50);
     border-radius: 15px;
     color:white;
+    transition: 0.5s;
 }
 @keyframes paraintro {
   from {top:70%;left:0%;opacity: 0%;}
@@ -289,6 +290,7 @@ transition:.5s ease;
 
 .sidepara strong{
   font-size: 20px;
+  transition: 0.5s;
 }
 .sidepara:hover{
   padding: 5px;
@@ -304,6 +306,7 @@ transition:.5s ease;
 
 .sidepara strong:hover{
   font-size: 40px;
+  transition: 0.5s;
 }
 #testbtn{
   color: antiquewhite;
