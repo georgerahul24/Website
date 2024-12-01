@@ -1,10 +1,36 @@
+/* Main theme */
+:root {
+    --bg:  #0a0b0a;
+    --fontmedium: #69ae76;
+    --fontlight: #baedc3;
+}
+
+
 .theme {
-    background-color: #021c13;  /* Darker shade of green */
-    color: #a2e8b0;  /* Lighter green for better contrast */
+    background-color:var(--bg);
+    color: var(--fontmedium);
     font-family: 'Roboto', sans-serif;
 }
 
+/* Paragraph text */
 .smallParagraph {
     font-size: 1.5rem;
-    color: #c1d9b6;  /* Slightly lighter text for smaller text */
+    color: var(--fontlight);
+}
+
+/* Navbar theme */
+.navbartheme {
+    background-color: var(--bg);
+    font-family: 'JetBrains Mono', monospace;
+
+}
+
+
+.nav-link{
+    color: var(--fontlight);
+}
+.nav-link:hover {
+    font-style: normal;
+    text-decoration: none;
+    color: var(--fontmedium);
 }

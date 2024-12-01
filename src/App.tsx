@@ -1,4 +1,4 @@
-import pheonixImage from './assets/pheonix.jpeg';
+import pheonixImage from './assets/pheonix.png';
 function App() {
     return (
         <div className="container p-2">
