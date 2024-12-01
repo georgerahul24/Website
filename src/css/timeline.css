@@ -1,0 +1,41 @@
+.year-column {
+    text-align: end;
+    padding-right: 1rem;
+    width: 120px;
+}
+
+.timeline-line-container {
+    position: relative;
+    width: 30px;
+}
+
+.timeline-line {
+    position: absolute;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #e0e0e0;
+    top: 15px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #0ff66e;
+    border: 3px solid #fff;
+    top: 12px;
+    z-index: 1;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.timeline-content {
+    padding-left: 2rem;
+    padding-bottom: 1rem;
+    flex: 1;
+    max-width: 600px;
+}
