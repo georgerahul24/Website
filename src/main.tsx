@@ -8,12 +8,12 @@ import Navbar from "./Navbar.tsx";
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <div className='theme'>
-           <Navbar/>
+            <Navbar/>
             <div className='vh-100 d-flex justify-content-center align-items-center'>
-                <App />
+                <App/>
             </div>
             <div className='vh-100 d-flex justify-content-center align-items-center'>
-                <App2 />
+                <App2/>
             </div>
         </div>
     </StrictMode>,
