@@ -1,0 +1,10 @@
+.theme {
+    background-color: #021c13;  /* Darker shade of green */
+    color: #a2e8b0;  /* Lighter green for better contrast */
+    font-family: 'Roboto', sans-serif;
+}
+
+.smallParagraph {
+    font-size: 1.5rem;
+    color: #c1d9b6;  /* Slightly lighter text for smaller text */
+}
