@@ -1,79 +1,131 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scroll Snap Example</title>
-
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Snap Example</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: Arial, sans-serif; /* Common web-safe font */
+      }
+      .scroll-container {
+        overflow-y: auto;
+        scroll-snap-type: y mandatory; /* Vertical snapping */
+        height: calc(100vh - 60px); /* Adjust for fixed navbar height */
+      }
+      .snap-section {
+        scroll-snap-align: start; /* Snap section's top edge into view */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem 1rem; /* Add padding for content breathing room */
+        color: white;
+        text-align: center; /* Center-align all content */
+      }
+      .snap-section:nth-child(1) { background-color: #3498db; }
+      .snap-section:nth-child(2) { background-color: #e74c3c; }
+      .snap-section:nth-child(3) { background-color: #2ecc71; }
 
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: Arial, sans-serif; /* Using a common web-safe font */
-    }
-    .scroll-container {
-      overflow-y: auto;
-      scroll-snap-type: y mandatory; /* Define vertical snapping with a strict policy */
-      height: calc(100vh - 1px); /* Adjust for fixed navbar */
-    }
-    .snap-section {
-      scroll-snap-align: start; /* Snap the top edge of this element into view */
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 2rem; /* Increase text size for better visibility */
-      color: white;
-      transition: transform 1s ease-in-out; /* Smooth transition for scaling effect */
-    }
-    .snap-section:nth-child(1) { background-color: #3498db; }
-    .snap-section:nth-child(2) { background-color: #e74c3c; }
-    .snap-section:nth-child(3) { background-color: #2ecc71; }
-  </style>
-</head>
-<body>
+      /* Styling for titles and subtitles */
+      .section-title {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+      .section-subtitle {
+        font-size: 1.5rem;
+        font-weight: 300;
+        margin-bottom: 1.5rem;
+      }
+      .section-body {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        max-width: 700px; /* Limit width for better readability */
+      }
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-  <a class="navbar-brand" href="#">My Portfolio</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-      <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-      <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
-    </ul>
+      /* Navbar styling */
+      .navbar {
+        padding: 0.75rem 1rem;
+      }
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      .navbar-nav .nav-item .nav-link {
+        font-size: 1rem;
+        margin-right: 0.5rem;
+        color: white !important; /* Ensure white text on the navbar */
+        transition: color 0.3s;
+      }
+      .navbar-nav .nav-item .nav-link:hover {
+        color: #d1ecf1 !important; /* Slightly lighter shade on hover */
+      }
+    </style>
+  </head>
+  <body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <a class="navbar-brand" href="#">My Portfolio</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="scroll-container">
+    <!-- About Section -->
+    <section id="about" class="snap-section">
+      <h1 class="section-title">About Me</h1>
+      <p class="section-subtitle">Welcome to my world!</p>
+      <div class="section-body">
+        Hi there! I'm a passionate developer with a love for creating engaging digital experiences. This section gives you a glimpse into who I am and what drives me.
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="snap-section bg-secondary">
+      <h1 class="section-title">Projects</h1>
+      <p class="section-subtitle">Showcasing my work</p>
+      <div class="section-body">
+        Here you'll find some of the projects I've worked on. Each project is a testament to my commitment to quality and innovation.
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="snap-section">
+      <h1 class="section-title">Education</h1>
+      <p class="section-subtitle">My academic journey</p>
+      <div class="section-body">
+        Check out my educational background and the learning path that has shaped me into the professional I am today.
+      </div>
+    </section>
   </div>
-</nav>
 
-<div class="scroll-container">
-  <!-- About Section -->
-  <section id="about" class="snap-section text-center py-5">
-    <h1>About Me</h1>
-    <p>Welcome to my portfolio! Here's a little about me.</p>
-  </section>
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <!-- Projects Section -->
-  <section id="projects" class="snap-section bg-secondary text-white text-center py-5">
-    <h1>Projects</h1>
-    <p>Explore some of the projects I've worked on.</p>
-  </section>
-
-  <!-- Education Section -->
-  <section id="education" class="snap-section text-center py-5">
-    <h1>Education</h1>
-    <p>Learn about my educational background.</p>
-  </section>
-
-  <!-- Additional Sections can be added here -->
-</div>
-
-
-</body>
-</html>
+  </body>
+  </html>
