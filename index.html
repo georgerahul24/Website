@@ -1,131 +1,299 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scroll Snap Example</title>
+  <title>George Rahul - Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scroll Snap Example</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        font-family: Arial, sans-serif; /* Common web-safe font */
-      }
-      .scroll-container {
-        overflow-y: auto;
-        scroll-snap-type: y mandatory; /* Vertical snapping */
-        height: calc(100vh - 60px); /* Adjust for fixed navbar height */
-      }
-      .snap-section {
-        scroll-snap-align: start; /* Snap section's top edge into view */
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem 1rem; /* Add padding for content breathing room */
-        color: white;
-        text-align: center; /* Center-align all content */
-      }
-      .snap-section:nth-child(1) { background-color: #3498db; }
-      .snap-section:nth-child(2) { background-color: #e74c3c; }
-      .snap-section:nth-child(3) { background-color: #2ecc71; }
 
-      /* Styling for titles and subtitles */
-      .section-title {
-        font-size: 3rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-      }
-      .section-subtitle {
-        font-size: 1.5rem;
-        font-weight: 300;
-        margin-bottom: 1.5rem;
-      }
-      .section-body {
-        font-size: 1.125rem;
-        line-height: 1.75rem;
-        max-width: 700px; /* Limit width for better readability */
-      }
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Roboto', sans-serif; /* Common web-safe font with added style */
+      background: linear-gradient(135deg, #6e48aa, #9d50bb); /* Gradient background */
+    }
 
-      /* Navbar styling */
-      .navbar {
-        padding: 0.75rem 1rem;
-      }
-      .navbar-brand {
-        font-size: 1.5rem;
-        font-weight: bold;
-      }
-      .navbar-nav .nav-item .nav-link {
-        font-size: 1rem;
-        margin-right: 0.5rem;
-        color: white !important; /* Ensure white text on the navbar */
-        transition: color 0.3s;
-      }
-      .navbar-nav .nav-item .nav-link:hover {
-        color: #d1ecf1 !important; /* Slightly lighter shade on hover */
-      }
-    </style>
-  </head>
-  <body>
+    .scroll-container {
+      overflow-y: auto;
+      scroll-snap-type: y mandatory; /* Vertical snapping */
+      height: calc(100vh - 60px); /* Adjust for fixed navbar height */
+    }
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-    <a class="navbar-brand" href="#">My Portfolio</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-        <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
-      </ul>
-    </div>
-  </nav>
+    .snap-section {
+      scroll-snap-align: start; /* Snap section's top edge into view */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem; /* Add padding for content breathing room */
+      text-align: center; /* Center-align all content */
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
 
-  <div class="scroll-container">
-    <!-- About Section -->
-    <section id="about" class="snap-section">
-      <h1 class="section-title">About Me</h1>
-      <p class="section-subtitle">Welcome to my world!</p>
-      <div class="section-body">
-        Hi there! I'm a passionate developer with a love for creating engaging digital experiences. This section gives you a glimpse into who I am and what drives me.
-      </div>
-    </section>
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-    <!-- Projects Section -->
-    <section id="projects" class="snap-section bg-secondary">
-      <h1 class="section-title">Projects</h1>
-      <p class="section-subtitle">Showcasing my work</p>
-      <div class="section-body">
-        Here you'll find some of the projects I've worked on. Each project is a testament to my commitment to quality and innovation.
-      </div>
-    </section>
+    .snap-section:nth-child(1) { background-color: rgba(255, 255, 255, 0.2); } /* Lighter overlay */
+    .snap-section:nth-child(2) { background-color: rgba(255, 255, 255, 0.3); delay: 0.5s; }
+    .snap-section:nth-child(3) { background-color: rgba(255, 255, 255, 0.4); delay: 1s; }
 
-    <!-- Education Section -->
-    <section id="education" class="snap-section">
-      <h1 class="section-title">Education</h1>
-      <p class="section-subtitle">My academic journey</p>
-      <div class="section-body">
-        Check out my educational background and the learning path that has shaped me into the professional I am today.
-      </div>
-    </section>
+    /* Styling for titles and subtitles */
+    .section-title {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #fff; /* White text for better readability against gradient background */
+      font-family: 'Montserrat', sans-serif; /* Using Montserrat for headings */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+    }
+
+    .section-subtitle {
+      font-size: 1.8rem;
+      color: #e6e6e6; /* Light grey for contrast */
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+  </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top bg-dark">
+  <a class="navbar-brand" href="#">GR</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#home">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#projects">Projects</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#education">Education</a>
+      </li>
+    </ul>
   </div>
+</nav>
 
-  <!-- Bootstrap JS and dependencies -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Content -->
+<div class="scroll-container">
 
-  </body>
-  </html>
+  <!-- Start of Home Section -->
+  <section id="home" class="snap-section my-5">
+    <div class="container text-center">
+      <div class="card shadow-lg p-4 mb-5 bg-white rounded custom-card">
+        <img src="path/to/home-image.jpg" class="card-img-top" alt="Home Image" style="max-height: 200px; object-fit: cover;">
+        <div class="card-body text-dark">
+          <h1 class="section-title">Welcome!</h1>
+
+          <!-- Profile Information -->
+          <div class="profile-info mt-4">
+            <ul class="list-unstyled">
+              <li><strong>Name:</strong> George Rahul</li>
+              <li><strong>Age:</strong> 19</li>
+              <li><strong>Role:</strong> Tech Enthusiast & Innovator</li>
+              <li><strong>Experience:</strong> Coordinator of the Programming Club, Technical Team Member in I&E Cell</li>
+            </ul>
+          </div>
+
+          <!-- Certifications and Skills -->
+          <div class="certifications-skills mt-4">
+            <h2>Certifications & Skills</h2>
+            <p>I have pursued over 35 Coursera certifications reflecting my dedication to mastering diverse programming facets.</p>
+            <table class="table table-striped mt-3">
+              <thead>
+              <tr>
+                <th scope="col">Programming Languages</th>
+                <th scope="col">Proficiency Level</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>C, Java, Python</td>
+                <td>Well-versed</td>
+              </tr>
+              <tr>
+                <td>C++, C#, Dart</td>
+                <td>Intermediate</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Start of Projects Section -->
+  <section id="projects" class="snap-section my-5">
+    <div class="container text-center">
+      <div class="card shadow-lg p-4 mb-5 bg-white rounded custom-card">
+        <img src="path/to/projects-image.jpg" class="card-img-top" alt="Projects Image" style="max-height: 200px; object-fit: cover;">
+        <div class="card-body text-dark">
+          <h1 class="section-title">Projects</h1>
+          <p class="section-subtitle mb-3 font-weight-bold">My Work Showcase</p>
+          <p>Each project is a testament to my skills and creativity. Dive into the details of what I've built.</p>
+
+          <!-- Elsa Project Details -->
+          <div class="project-details mt-4">
+            <h2>Elsa - Virtual Assistant</h2>
+            <img src="path/to/elsa-image.jpg" alt="Elsa Project Screenshot" style="max-height: 150px; margin-top: 10px; object-fit: cover;">
+            <p>This project was developed in my 12th grade to assist people not familiar with computers. Built initially in Python and later partially ported into C#, Elsa is a virtual computer assistant featuring a chat interface and GUI.</p>
+            <ul class="list-unstyled mb-3">
+              <li>Converts multiple sequential Windows commands into single Elsa commands</li>
+              <li>Currently working on integrating an LLM to enhance functionality</li>
+            </ul>
+          </div>
+
+          <!-- Alumni Portal Project Details -->
+          <div class="project-details mt-4">
+            <h2>Alumni Portal</h2>
+            <img src="path/to/alumni-portal-image.jpg" alt="Alumni Portal Screenshot" style="max-height: 150px; margin-top: 10px; object-fit: cover;">
+            <p>Developed as part of college coursework using Django, MySQL, and Bootstrap. This project encompasses several features to enhance the alumni experience.</p>
+            <ul class="list-unstyled mb-3">
+              <li>Profile Masking</li>
+              <li>Login and Authentication</li>
+              <li>Settings Page</li>
+              <li>Comprehensive Alumni Portal Features</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="work-experience" class="snap-section my-5">
+    <div class="container text-center">
+      <div class="card shadow-lg p-4 mb-5 bg-white rounded custom-card">
+        <h1 class="section-title">Work Experience</h1>
+        <p class="section-subtitle mb-3 font-weight-bold">My Professional Journey</p>
+
+        <!-- Jescon IT Solutions Pvt. Ltd. -->
+        <div class="work-detail mt-4">
+          <h2>Jescon IT Solutions Pvt. Ltd.</h2>
+          <p><strong>December 2023 - Present</strong></p>
+          <img src="path/to/jescon-image.jpg" alt="Jescon Project Screenshot" style="max-height: 150px; margin-top: 10px; object-fit: cover;">
+          <p>An IT Company providing innovative solutions in the healthcare industry. My role involved developing an app to track employee attendance using technologies like Face Recognition, QR Codes, and Nearby Devices. I used Django for the backend and Flutter for application development. The integration was achieved through REST APIs, aiming to reduce queues during rush hours at hospital punching machines.</p>
+          <ul class="list-unstyled mb-3">
+            <li>Collaborated across various teams</li>
+            <li>Gained experience in the IT sector</li>
+          </ul>
+        </div>
+
+        <!-- Summer Internship Program 2024, NIT Rourkela -->
+        <div class="work-detail mt-4">
+          <h2>NIT Rourkela - Summer Internship Program 2024</h2>
+          <p><strong>May & June 2024</strong></p>
+          <img src="path/to/nit-rourkela-image.jpg" alt="NIT Rourkela Project Screenshot" style="max-height: 150px; margin-top: 10px; object-fit: cover;">
+          <p>I interned at the Intelligent Biosensing and Microcontrollers Lab under Prof. Mirza Khalid, Bio-Medical Department. My work involved extracting 3D information from images using stereo cameras and computer vision techniques. Additionally, I contributed to developing a wireless interface for integrating IMU sensors with an EEG band.</p>
+          <ul class="list-unstyled mb-3">
+            <li>Exposed to a research environment</li>
+            <li>Gained knowledge in Computer Vision, Networks, and Microcontroller Platforms</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <section id="positions-of-responsibility" class="snap-section my-5">
+    <div class="container text-center">
+      <div class="card shadow-lg p-4 mb-5 bg-white rounded custom-card">
+        <h1 class="section-title">Positions of Responsibility</h1>
+        <p class="section-subtitle mb-3 font-weight-bold">Leadership and Engagement Roles</p>
+
+        <!-- Programming Club Coordinator -->
+        <div class="position-detail mt-4">
+          <h2>Programming Club Coordinator</h2>
+          <p><strong>July 2023 - Present</strong></p>
+          <img src="path/to/programming-club-image.jpg" alt="Programming Club Event Screenshot" style="max-height: 150px; margin-top: 10px; object-fit: cover;">
+          <p>As one of six coordinators, I've led in planning and organizing club activities for diverse age groups. Events like Blind Coding and Introduction to Web Development were hosted under my leadership.</p>
+          <ul class="list-unstyled mb-3">
+            <li>Collaborated with Github Campus Ambassador</li>
+            <li>Sourced merchandise for event participants from Github</li>
+          </ul>
+        </div>
+
+        <!-- Event Management Team, Entropy -->
+        <div class="position-detail mt-4">
+          <h2>Event Management Team, Entropy</h2>
+          <p><strong>December 2023</strong></p>
+          <img src="path/to/entropy-event-image.jpg" alt="Entropy Tech Fest Screenshot" style="max-height: 150px; margin-top: 10px; object-fit: cover;">
+          <p>A core member of the organizing committee, I managed two major events: the Treasure Hunt and Tech Quiz. This role enhanced my skills in people management and coordination.</p>
+          <ul class="list-unstyled mb-3">
+            <li>Designed rounds for the Treasure Hunt</li>
+            <li>Collaborated on Tech Quiz with faculty members</li>
+          </ul>
+        </div>
+
+        <!-- Tech Team I&E-Cell -->
+        <div class="position-detail mt-4">
+          <h2>Tech Team, Innovation and Entrepreneurship Cell</h2>
+          <p><strong>March 2023 - Present</strong></p>
+          <img src="path/to/ie-cell-image.jpg" alt="I&E-Cell Event Screenshot" style="max-height: 150px; margin-top: 10px; object-fit: cover;">
+          <p>As a member, I contribute to fostering innovation and entrepreneurship within the college. This involves organizing workshops and events that encourage creativity and business acumen.</p>
+          <ul class="list-unstyled mb-3">
+            <li>Engage with budding entrepreneurs</li>
+            <li>Facilitate tech-driven entrepreneurial activities</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Start of Education Section -->
+  <section id="education" class="snap-section my-5">
+    <div class="container text-center">
+      <div class="card shadow-lg p-4 mb-5 bg-white rounded custom-card">
+        <h1 class="section-title">Education</h1>
+        <p class="section-subtitle mb-3 font-weight-bold">Academic Journey</p>
+
+        <!-- Bachelor of Technology -->
+        <div class="education-detail mt-4">
+          <h2>Bachelor of Technology in Computer Science and Engineering</h2>
+          <p><strong>Indian Institute of Information Technology, Guwahati (IIITG)</strong></p>
+          <p><em>2022 - 2026</em></p>
+          <img src="path/to/iiitg-logo.jpg" alt="IIITG Logo" style="max-height: 50px; margin-top: 10px;">
+          <p>I am currently in my fourth semester with an overall Cumulative Performance Index (CPI) of 8.88.</p>
+        </div>
+
+        <!-- AISSCE / CBSE 12th Grade -->
+        <div class="education-detail mt-4">
+          <h2>AISSCE / CBSE 12th Grade</h2>
+          <p><strong>Devamatha CMI Public School</strong></p>
+          <p><em>2020 - 2022</em></p>
+          <img src="path/to/devamatha-logo.jpg" alt="Devamatha CMI Logo" style="max-height: 50px; margin-top: 10px;">
+          <p>I completed my 11th and 12th grade with an overall percentage of 97%.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
