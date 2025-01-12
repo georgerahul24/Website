@@ -1,0 +1,29 @@
+/* Custom Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+header, .bg-purple, footer {
+    background-color: #5b2c6f; /* Deep purple background */
+}
+
+.bg-purple-gradient {
+    background: linear-gradient(135deg, #7a4d8e 0%, #9a58b3 100%);
+}
+
+#projects .card {
+    border: none;
+}
+
+footer {
+    color: white;
+}
+
+.navbar-brand, .nav-link {
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+    color: #fff;
+}
