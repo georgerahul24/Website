@@ -15,12 +15,16 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background: #0a0a0a;
       color: #ffffff;
-      overflow-x: hidden;
       font-family: 'DM Sans', sans-serif;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     #canvas-container {
@@ -30,18 +34,19 @@
       width: 100%;
       height: 100vh;
       z-index: -1;
-      opacity: 0.6;
+      opacity: 0.4;
+      pointer-events: none;
     }
 
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      padding: 1.5rem 2rem;
+      padding: 1.2rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(10, 10, 10, 0.9);
+      background: rgba(10, 10, 10, 0.8);
       backdrop-filter: blur(10px);
       z-index: 100;
       border-bottom: 1px solid rgba(100, 255, 218, 0.1);
@@ -49,14 +54,16 @@
 
     .logo {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 700;
       color: #64ffda;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease forwards;
     }
 
     .nav-links {
       display: flex;
-      gap: 2.5rem;
+      gap: 2rem;
     }
 
     .nav-links a {
@@ -65,17 +72,24 @@
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 500;
       transition: color 0.3s ease;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 1px;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease forwards;
     }
+
+    .nav-links a:nth-child(1) { animation-delay: 0.1s; }
+    .nav-links a:nth-child(2) { animation-delay: 0.2s; }
+    .nav-links a:nth-child(3) { animation-delay: 0.3s; }
+    .nav-links a:nth-child(4) { animation-delay: 0.4s; }
 
     .nav-links a:hover {
       color: #64ffda;
     }
 
     main {
-      padding: 0 2rem;
+      padding: 0 1.5rem;
     }
 
     .hero {
@@ -83,13 +97,16 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 0.5s;
     }
 
     .hero h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
       line-height: 1.1;
       margin-bottom: 1.5rem;
       background: linear-gradient(45deg, #64ffda, #00b3ff);
@@ -99,112 +116,60 @@
     }
 
     .hero p {
-      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
       color: #8892b0;
       max-width: 600px;
       margin-bottom: 2.5rem;
       font-weight: 400;
     }
 
-    .cta-button {
-      display: inline-block;
-      padding: 1.2rem 2.5rem;
-      background: transparent;
-      border: 2px solid #64ffda;
-      color: #64ffda;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: all 0.3s ease;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 500;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .cta-button:hover {
-      background: rgba(100, 255, 218, 0.1);
-      transform: translateY(-3px);
-    }
-
     .section {
       min-height: 100vh;
-      padding: 120px 0;
-      max-width: 1000px;
+      padding: 100px 0;
+      max-width: 900px;
       margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .section h2 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-size: clamp(2rem, 4vw, 2.8rem);
       margin-bottom: 2.5rem;
       color: #64ffda;
       font-weight: 700;
     }
 
-    .section p {
-      color: #8892b0;
+    .work-entry, .project-card {
+      background: rgba(17, 34, 64, 0.3);
+      padding: 2rem;
+      border-radius: 8px;
       margin-bottom: 1.5rem;
-      font-size: 1.1rem;
-      line-height: 1.8;
-    }
-
-    .work-entry {
-      background: rgba(17, 34, 64, 0.6);
-      padding: 2.5rem;
-      border-radius: 12px;
-      margin-bottom: 2rem;
       border: 1px solid rgba(100, 255, 218, 0.1);
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
     }
 
-    .work-entry:hover {
+    .work-entry:hover, .project-card:hover {
       transform: translateY(-5px);
       border-color: rgba(100, 255, 218, 0.3);
-    }
-
-    .work-entry h3 {
-      font-family: 'Space Grotesk', sans-serif;
-      color: #ffffff;
-      margin-bottom: 1rem;
-      font-size: 1.4rem;
-      font-weight: 600;
+      background: rgba(17, 34, 64, 0.4);
     }
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .project-card {
-      background: rgba(17, 34, 64, 0.6);
-      padding: 2.5rem;
-      border-radius: 12px;
-      transition: transform 0.3s ease;
-      border: 1px solid rgba(100, 255, 218, 0.1);
-      height: 100%;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(100, 255, 218, 0.3);
-    }
-
-    .project-card h3 {
-      font-family: 'Space Grotesk', sans-serif;
-      margin-bottom: 1rem;
-      color: #ffffff;
-      font-size: 1.4rem;
-      font-weight: 600;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
     }
 
     #contact {
       text-align: center;
-    }
-
-    #contact p {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
     }
 
     .contact-links {
@@ -217,35 +182,41 @@
     .contact-links a {
       color: #64ffda;
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 1rem;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid rgba(100, 255, 218, 0.2);
+      border-radius: 4px;
     }
 
     .contact-links a:hover {
       transform: translateY(-3px);
-      color: #ffffff;
+      background: rgba(100, 255, 218, 0.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-
-      main {
-        padding: 0 1rem;
-      }
-
-      .work-entry, .project-card {
-        padding: 1.5rem;
-      }
-
-      .contact-links {
-        flex-direction: column;
-        align-items: center;
-      }
+      .nav-links { display: none; }
+      main { padding: 0 1rem; }
+      .section { padding: 80px 0; }
     }
   </style>
 </head>
@@ -264,57 +235,55 @@
 
 <main>
   <section class="hero">
-    <h1>Hi, I'm George !!!</h1>
+    <h1>Hi, I'm George</h1>
     <p>I'm a creative developer passionate about building beautiful digital experiences.</p>
-    <a href="#contact" class="cta-button">Get in touch</a>
   </section>
 
   <section id="profile" class="section">
     <h2>About Me</h2>
     <p>I am George Rahul, a 19-year-old tech enthusiast. I served as the coordinator of the programming club and was part of the Technical Team in the I&E Cell at my college.</p>
-    <p>I have pursued over 35 Coursera certifications, reflecting my dedication to mastering diverse programming facets. My skills extend beyond coding; they include entrepreneurship and innovation. I am well-versed in C, Java, and Python, with intermediate proficiency in C++, C#, and Dart.</p>
+    <p>I have pursued over 35 Coursera certifications, reflecting my dedication to mastering diverse programming facets. My skills extend beyond coding; they include entrepreneurship and innovation.</p>
   </section>
 
   <section id="experience" class="section">
-    <h2>Work Experience</h2>
+    <h2>Experience</h2>
     <div class="work-entry">
-      <h3>Jescon IT Solutions Pvt. Ltd. - December 2023</h3>
-      <p>Jescon IT Solutions is an IT company providing innovative solutions in the healthcare industry.</p>
-      <p>I developed an app to track employee attendance using technologies like Face Recognition, QR Codes, and Nearby Devices. Using Django for the backend and Flutter for the frontend, I integrated both with REST APIs. This solution was designed to reduce queues during rush hours at hospital punching machines. My role also involved cross-team collaboration in a real IT sector environment.</p>
+      <h3>Jescon IT Solutions Pvt. Ltd.</h3>
+      <p>Developed an employee attendance tracking app using Face Recognition, QR Codes, and Nearby Devices. Built with Django and Flutter, integrated with REST APIs.</p>
     </div>
     <div class="work-entry">
-      <h3>Summer Internship Program, NIT Rourkela - May & June 2024</h3>
-      <p>I worked in the Intelligent Biosensing and Microcontrollers Lab under Prof. Mirza Khalid in the Bio-Medical Department.</p>
-      <p>The projects involved obtaining 3D information from images using stereo cameras and computer vision techniques, as well as creating a wireless interface for IMU sensors with an EEG band. This experience exposed me to research environments and enhanced my knowledge in Computer Vision, Networks, and Microcontroller Platforms. The work contributed significantly to the lab's ongoing experiments.</p>
+      <h3>Summer Internship, NIT Rourkela</h3>
+      <p>Worked on 3D image processing using stereo cameras and created wireless interfaces for IMU sensors with EEG bands in the Intelligent Biosensing Lab.</p>
     </div>
   </section>
 
   <section id="projects" class="section">
-    <h2>Featured Projects</h2>
+    <h2>Projects</h2>
     <div class="projects-grid">
       <div class="project-card">
         <h3>Elsa</h3>
-        <p>A virtual computer assistant with a chat feature and GUI, developed in Python and partially ported to C#. This tool helps users execute multiple Windows commands with one command using "Elsa". Currently, I am working on integrating an LLM to enhance its capabilities.</p>
+        <p>A virtual computer assistant with chat features and GUI, developed in Python and C#. Currently integrating LLM capabilities.</p>
       </div>
       <div class="project-card">
         <h3>Alumni Portal</h3>
-        <p>This project was created as part of my college coursework using Django, MySQL, and Bootstrap. It features Profile Masking, Login and Authentication, a Settings Page, and other essential Alumni Portal functionalities.</p>
+        <p>Django-based alumni management system with Profile Masking, Authentication, and comprehensive portal features.</p>
       </div>
     </div>
   </section>
 
   <section id="contact" class="section">
     <h2>Contact</h2>
-    <p>Feel free to get in touch with me for collaboration or any inquiries.</p>
+    <p>Feel free to reach out for collaboration or inquiries.</p>
     <div class="contact-links">
-      <a href="mailto:george.rahul@example.com"><i class="fas fa-envelope"></i> george.rahul@example.com</a>
-      <a href="https://linkedin.com/in/george-rahul"><i class="fab fa-linkedin"></i> linkedin.com/in/george-rahul</a>
+      <a href="mailto:george.rahul@example.com"><i class="fas fa-envelope"></i> Email</a>
+      <a href="https://linkedin.com/in/george-rahul"><i class="fab fa-linkedin"></i> LinkedIn</a>
     </div>
   </section>
 </main>
 
 <script>
-  // Three.js Animation
+  // Three.js setup remains the same as your previous code
+  // Scene setup
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -322,8 +291,7 @@
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-  // Create an icosahedron
-  const geometry = new THREE.IcosahedronGeometry(2, 0);
+  const geometry = new THREE.IcosahedronGeometry(2, 1);
   const material = new THREE.MeshPhongMaterial({
     color: 0x64ffda,
     wireframe: true,
@@ -332,7 +300,34 @@
   const icosahedron = new THREE.Mesh(geometry, material);
   scene.add(icosahedron);
 
-  // Add lights
+  const sparkles = [];
+  const sparkleGeometry = new THREE.SphereGeometry(0.05, 8, 8);
+  const sparkleMaterial = new THREE.MeshPhongMaterial({
+    color: 0xffffff,
+    emissive: 0xffffff,
+    emissiveIntensity: 0.5
+  });
+
+  for(let i = 0; i < 30; i++) {
+    const sparkle = new THREE.Mesh(sparkleGeometry, sparkleMaterial);
+    const radius = 3;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.random() * Math.PI;
+
+    sparkle.position.x = radius * Math.sin(phi) * Math.cos(theta);
+    sparkle.position.y = radius * Math.sin(phi) * Math.sin(theta);
+    sparkle.position.z = radius * Math.cos(phi);
+
+    sparkle.scale.setScalar(Math.random() * 0.5 + 0.5);
+    sparkle.userData = {
+      speed: Math.random() * 0.02 + 0.01,
+      offset: Math.random() * Math.PI * 2
+    };
+
+    scene.add(sparkle);
+    sparkles.push(sparkle);
+  }
+
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
   scene.add(ambientLight);
 
@@ -342,17 +337,39 @@
 
   camera.position.z = 6;
 
-  // Animation function
+  const mouse = new THREE.Vector2();
+  const target = new THREE.Vector2();
+
+  document.addEventListener('mousemove', (event) => {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  });
+
   function animate() {
     requestAnimationFrame(animate);
 
-    icosahedron.rotation.x += 0.001;
-    icosahedron.rotation.y += 0.002;
+    target.lerp(mouse, 0.1);
+
+    icosahedron.position.x = target.x * 3;
+    icosahedron.position.y = target.y * 2;
+
+    icosahedron.rotation.x += 0.01;
+    icosahedron.rotation.y += 0.01;
+
+    const time = Date.now() * 0.001;
+    sparkles.forEach((sparkle, i) => {
+      const angle = (i / sparkles.length) * Math.PI * 2 + time;
+      const radius = 1.5;
+
+      sparkle.position.x = icosahedron.position.x + Math.cos(angle) * radius;
+      sparkle.position.y = icosahedron.position.y + Math.sin(angle) * radius;
+      sparkle.rotation.x += 0.01;
+      sparkle.rotation.z += 0.01;
+    });
 
     renderer.render(scene, camera);
   }
 
-  // Handle window resize
   window.addEventListener('resize', () => {
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -362,6 +379,18 @@
 
     renderer.setSize(width, height);
   });
+
+  // Intersection Observer for scroll animations
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  sections.forEach(section => observer.observe(section));
 
   animate();
 </script>
