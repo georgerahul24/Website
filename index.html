@@ -229,32 +229,6 @@
       main { padding: 0 1rem; }
       .section { padding: 80px 0; }
     }
-    .typewriter {
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 2px solid #000; /* Blinking cursor */
-      animation: typing 3s steps(30, end), blink 0.5s step-end infinite;
-    }
-
-    @keyframes typing {
-      from {
-        width: 0;
-      }
-      to {
-        width: 100%;
-      }
-    }
-
-    @keyframes blink {
-      from, to {
-        border-color: transparent;
-      }
-      50% {
-        border-color: black;
-      }
-    }
-
   </style>
 </head>
 <body>
@@ -272,8 +246,8 @@
 
 <main>
   <section class="section" id="landing">
-    <h1 id="typewriter-title">Hi, I'm George</h1>
-    <p id="typewriter-description">I'm a creative developer passionate about building beautiful digital experiences.</p>
+    <h1>Hi, I'm George</h1>
+    <p>I'm a creative developer passionate about building beautiful digital experiences.</p>
   </section>
 
   <section id="profile" class="section">
@@ -431,38 +405,6 @@
   sections.forEach(section => observer.observe(section));
 
   animate();
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const elements = [
-      { id: "typewriter-title", text: "Hi, I'm George" },
-      { id: "typewriter-description", text: "I'm a creative developer passionate about building beautiful digital experiences." }
-    ];
-
-    const typeText = (element, text, delay) => {
-      const target = document.getElementById(element);
-      target.textContent = "";
-      target.classList.add("typewriter");
-      let i = 0;
-
-      const typeInterval = setInterval(() => {
-        if (i < text.length) {
-          target.textContent += text.charAt(i);
-          i++;
-        } else {
-          clearInterval(typeInterval);
-          target.classList.remove("typewriter");
-        }
-      }, delay);
-    };
-
-    let totalDelay = 500;
-    elements.forEach((el, index) => {
-      setTimeout(() => typeText(el.id, el.text, 100), totalDelay);
-      totalDelay += el.text.length * 100 + 1000; // Adjust for typing and pause
-    });
-  });
-
 </script>
 </body>
 </html>
