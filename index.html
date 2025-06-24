@@ -4,414 +4,235 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>George's Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-    a {
-      color: white
-    }
-
     body {
+      font-family: 'Inter', 'DM Sans', sans-serif;
       background: #0a0a0a;
-      color: #ffffff;
-      font-family: 'DM Sans', sans-serif;
-      line-height: 1.6;
-      overflow-x: hidden;
+      color: #fff;
+      margin: 0;
+      scroll-behavior: smooth;
+      min-height: 100vh;
+      position: relative;
     }
-
     #canvas-container {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      z-index: -1;
-      opacity: 0.4;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0;
+      opacity: 0.35;
       pointer-events: none;
     }
-
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 1.2rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(10, 10, 10, 0.8);
-      backdrop-filter: blur(10px);
-      z-index: 100;
-      border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+    main, nav, footer {
+      position: relative;
+      z-index: 1;
     }
-
-    .logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #64ffda;
-      opacity: 0;
-      animation: fadeInUp 0.5s ease forwards;
+    .glass {
+      background: rgba(17, 34, 64, 0.45);
+      backdrop-filter: blur(12px);
+      border-radius: 1.25rem;
+      border: 1px solid rgba(100,255,218,0.08);
+      box-shadow: 0 4px 32px 0 rgba(0,0,0,0.12);
     }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .nav-links a {
-      color: #ffffff;
-      text-decoration: none;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 500;
-      transition: color 0.3s ease;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      opacity: 0;
-      animation: fadeInUp 0.5s ease forwards;
-    }
-
-    .nav-links a:nth-child(1) { animation-delay: 0.1s; }
-    .nav-links a:nth-child(2) { animation-delay: 0.2s; }
-    .nav-links a:nth-child(3) { animation-delay: 0.3s; }
-    .nav-links a:nth-child(4) { animation-delay: 0.4s; }
-
-    .nav-links a:hover {
-      color: #64ffda;
-    }
-
-    main {
-      padding: 0 1.5rem;
-      scroll-snap-type: y mandatory; /* Enable snap scrolling vertically */
-      overflow-y: scroll; /* Enable vertical scrolling */
-      height: 100vh; /* Full viewport height */
-    }
-
-    #landing {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      max-width: 1100px;
-      margin: 0 auto;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards;
-      animation-delay: 0.5s;
-    }
-
-    #landing h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(45deg, #64ffda, #00b3ff);
+    .gradient-title {
+      background: linear-gradient(90deg, #64ffda 0%, #00b3ff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      font-weight: 700;
+      background-clip: text;
+      text-fill-color: transparent;
     }
-
-    #landing p {
-      font-size: clamp(1rem, 2.5vw, 1.4rem);
-      color: #8892b0;
-      max-width: 600px;
-      margin-bottom: 2.5rem;
-      font-weight: 400;
-    }
-
-    .section {
-      min-height: 100vh;
-      padding: 100px 0;
-      max-width: 900px;
-      margin: 0 auto;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease;
-      font-size: 1.5rem;
-      scroll-snap-align: start; /* Snap to the start of the section */
-      height: 100vh; /* Full viewport height for each section */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      box-sizing: border-box;
-    }
-
-    .section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .section h2 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      margin-bottom: 2.5rem;
-      color: #64ffda;
-      font-weight: 700;
-    }
-
-    .work-entry, .project-card {
-      background: rgba(17, 34, 64, 0.3);
-      padding: 2rem;
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-      border: 1px solid rgba(100, 255, 218, 0.1);
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-    }
-
-    .work-entry:hover, .project-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(100, 255, 218, 0.3);
-      background: rgba(17, 34, 64, 0.4);
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    #contact {
-      text-align: center;
-    }
-
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .contact-links a {
-      color: #64ffda;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border: 1px solid rgba(100, 255, 218, 0.2);
-      border-radius: 4px;
-    }
-
-    .contact-links a:hover {
-      transform: translateY(-3px);
-      background: rgba(100, 255, 218, 0.1);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      0% { opacity: 0; transform: translateY(24px);}
+      100% { opacity: 1; transform: translateY(0);}
     }
-
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      main { padding: 0 1rem; }
-      .section { padding: 80px 0; }
+    .animate-fadeInUp { animation: fadeInUp 1s cubic-bezier(.4,0,.2,1) both; }
+    @keyframes float {
+      0%,100% { transform: translateY(0);}
+      50% { transform: translateY(-12px);}
     }
+    .animate-float { animation: float 4s ease-in-out infinite;}
   </style>
 </head>
 <body>
-<div id="canvas-container"></div>
+  <div id="canvas-container"></div>
 
-<nav>
-  <div class="logo">GR</div>
-  <div class="nav-links">
-    <a href="#profile">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
-
-<main>
-  <section class="section" id="landing">
-    <h1>Hi, I'm George</h1>
-    <p>A newbie to the world of Tech !!!</p>
-  </section>
-
-  <section id="profile" class="section">
-    <h2>About Me</h2>
-    <p>I am George Rahul, a 20-year-old tech enthusiast. I served as the coordinator of the programming club and was part of the Technical Team in the I&E Cell at my college.</p>
-    <p>I have pursued over 35 Coursera certifications, reflecting my dedication to mastering diverse programming facets. My skills extend beyond coding; they include entrepreneurship and innovation.</p>
-  </section>
-
-  <section id="experience" class="section">
-    <h2>Experience</h2>
-    <div class="work-entry">
-      <h3>Jescon IT Solutions Pvt. Ltd.</h3>
-      <p>Developed an employee attendance tracking app using Face Recognition, QR Codes, and Nearby Devices. Built with Django and Flutter, integrated with REST APIs.</p>
+  <!-- Navigation -->
+  <nav class="w-full fixed top-0 left-0 flex justify-between items-center px-8 py-4 bg-black bg-opacity-60 backdrop-blur-md shadow-md z-10">
+    <div class="text-2xl font-bold gradient-title tracking-widest">GR</div>
+    <div class="hidden md:flex space-x-8 text-base font-medium">
+      <a href="#profile" class="hover:text-teal-300 transition">About</a>
+      <a href="#experience" class="hover:text-teal-300 transition">Experience</a>
+      <a href="#projects" class="hover:text-teal-300 transition">Projects</a>
+      <a href="#contact" class="hover:text-teal-300 transition">Contact</a>
     </div>
-    <div class="work-entry">
-      <h3>Summer Internship, NIT Rourkela</h3>
-      <p>Worked on 3D image processing using stereo cameras and created wireless interfaces for IMU sensors with EEG bands in the Intelligent Biosensing Lab.</p>
-    </div>
-  </section>
+  </nav>
 
-  <section id="projects" class="section">
-    <h2>Projects</h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <h3>Elsa</h3>
-        <p>A virtual computer assistant with chat features and GUI, developed in Python and C#. Currently integrating LLM capabilities.</p>
+  <main class="pt-24 pb-12 px-4 md:px-0 max-w-4xl mx-auto space-y-20">
+    <!-- Landing -->
+    <section id="landing" class="flex flex-col items-center text-center animate-fadeInUp">
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-4 gradient-title">Hi, I'm George</h1>
+      <p class="text-lg md:text-2xl text-gray-300 mb-8">A newbie to the world of Tech !!!</p>
+       </section>
+
+    <!-- About -->
+    <section id="profile" class="glass p-8 md:p-12 animate-fadeInUp">
+      <h2 class="text-3xl font-bold mb-4 gradient-title">About Me</h2>
+      <p class="mb-2">I am George Rahul, a 20-year-old tech enthusiast. I served as the coordinator of the programming club and was part of the Technical Team in the I&E Cell at my college.</p>
+      <p class="mb-2">I have pursued over 35 Coursera certifications, reflecting my dedication to mastering diverse programming facets. My skills extend beyond coding; they include entrepreneurship and innovation.</p>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="glass p-8 md:p-12 animate-fadeInUp">
+      <h2 class="text-3xl font-bold mb-8 gradient-title">Experience</h2>
+      <div class="space-y-6">
+        <div class="p-6 bg-white bg-opacity-5 rounded-xl border border-teal-400 border-opacity-10 shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold mb-2 text-teal-300">Jescon IT Solutions Pvt. Ltd.</h3>
+          <p>Developed an employee attendance tracking app using Face Recognition, QR Codes, and Nearby Devices. Built with Django and Flutter, integrated with REST APIs.</p>
+        </div>
+        <div class="p-6 bg-white bg-opacity-5 rounded-xl border border-teal-400 border-opacity-10 shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold mb-2 text-teal-300">Summer Internship, NIT Rourkela</h3>
+          <p>Worked on 3D image processing using stereo cameras and created wireless interfaces for IMU sensors with EEG bands in the Intelligent Biosensing Lab.</p>
+        </div>
       </div>
-       <div class="project-card">
-        <h3>Virtual Labs</h3>
-        <p>Redesigned & Deployed 6 Experiments for <a href="https://www.vlab.co.in">Virtual Labs </a></p>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="glass p-8 md:p-12 animate-fadeInUp">
+      <h2 class="text-3xl font-bold mb-8 gradient-title">Projects</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white bg-opacity-10 rounded-xl p-6 shadow hover:scale-105 transition">
+          <h3 class="text-lg font-semibold mb-2 text-teal-200">Elsa</h3>
+          <p class="text-gray-200">A virtual computer assistant with chat features and GUI, developed in Python and C#. Currently integrating LLM capabilities.</p>
+        </div>
+        <div class="bg-white bg-opacity-10 rounded-xl p-6 shadow hover:scale-105 transition">
+          <h3 class="text-lg font-semibold mb-2 text-teal-200">Virtual Labs</h3>
+          <p class="text-gray-200">Redesigned & Deployed 6 Experiments for <a href="https://www.vlab.co.in" class="underline text-blue-300">Virtual Labs</a></p>
+        </div>
+        <div class="bg-white bg-opacity-10 rounded-xl p-6 shadow hover:scale-105 transition">
+          <h3 class="text-lg font-semibold mb-2 text-teal-200">Alumni Portal</h3>
+          <p class="text-gray-200">Django-based alumni management system with Profile Masking, Authentication, and comprehensive portal features.</p>
+        </div>
       </div>
-      <div class="project-card">
-        <h3>Alumni Portal</h3>
-        <p>Django-based alumni management system with Profile Masking, Authentication, and comprehensive portal features.</p>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="glass p-8 md:p-12 text-center animate-fadeInUp">
+      <h2 class="text-3xl font-bold mb-4 gradient-title">Contact</h2>
+      <p class="mb-6 text-gray-200">Feel free to reach out for collaboration or inquiries.</p>
+      <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+        <a href="mailto:georgerahul24@gmail.com" class="flex items-center gap-2 px-5 py-2 rounded-lg bg-teal-500 bg-opacity-20 border border-teal-300 text-teal-200 hover:bg-opacity-40 transition"><i class="fas fa-envelope"></i> Email</a>
+        <a href="https://www.linkedin.com/in/george-rahul-025582246/" class="flex items-center gap-2 px-5 py-2 rounded-lg bg-blue-500 bg-opacity-20 border border-blue-300 text-blue-200 hover:bg-opacity-40 transition"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="https://github.com/georgerahul24" class="flex items-center gap-2 px-5 py-2 rounded-lg bg-gray-700 bg-opacity-20 border border-gray-400 text-gray-200 hover:bg-opacity-40 transition"><i class="fab fa-github"></i> Github</a>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <section id="contact" class="section">
-    <h2>Contact</h2>
-    <p>Feel free to reach out for collaboration or inquiries.</p>
-    <div class="contact-links">
-      <a href="mailto:georgerahul24@gmail.com"><i class="fas fa-envelope"></i> Email</a>
-      <a href="https://www.linkedin.com/in/george-rahul-025582246/"><i class="fab fa-linkedin"></i> LinkedIn</a>
-      <a href="https://github.com/georgerahul24"><i class="fab fa-github"></i> Github</a>
-    </div>
-  </section>
-</main>
+  <footer class="w-full text-center py-6 text-gray-400 text-sm mt-12">
+    © 2025 George Rahul
+  </footer>
 
-<script>
-  // Three.js setup remains the same as your previous code
-  // Scene setup
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  <!-- Three.js Background Script -->
+  <script>
+    // Three.js setup (same as before)
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.getElementById('canvas-container').appendChild(renderer.domElement);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-  const geometry = new THREE.IcosahedronGeometry(2, 1);
-  const material = new THREE.MeshPhongMaterial({
-    color: 0x64ffda,
-    wireframe: true,
-    wireframeLinewidth: 2
-  });
-  const icosahedron = new THREE.Mesh(geometry, material);
-  scene.add(icosahedron);
+    const geometry = new THREE.IcosahedronGeometry(2, 1);
+    const material = new THREE.MeshPhongMaterial({
+      color: 0x64ffda,
+      wireframe: true,
+      wireframeLinewidth: 2
+    });
+    const icosahedron = new THREE.Mesh(geometry, material);
+    scene.add(icosahedron);
 
-  const sparkles = [];
-  const sparkleGeometry = new THREE.SphereGeometry(0.05, 8, 8);
-  const sparkleMaterial = new THREE.MeshPhongMaterial({
-    color: 0xffffff,
-    emissive: 0xffffff,
-    emissiveIntensity: 0.5
-  });
-
-  for(let i = 0; i < 30; i++) {
-    const sparkle = new THREE.Mesh(sparkleGeometry, sparkleMaterial);
-    const radius = 3;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.random() * Math.PI;
-
-    sparkle.position.x = radius * Math.sin(phi) * Math.cos(theta);
-    sparkle.position.y = radius * Math.sin(phi) * Math.sin(theta);
-    sparkle.position.z = radius * Math.cos(phi);
-
-    sparkle.scale.setScalar(Math.random() * 0.5 + 0.5);
-    sparkle.userData = {
-      speed: Math.random() * 0.02 + 0.01,
-      offset: Math.random() * Math.PI * 2
-    };
-
-    scene.add(sparkle);
-    sparkles.push(sparkle);
-  }
-
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-  scene.add(ambientLight);
-
-  const pointLight = new THREE.PointLight(0xffffff, 1);
-  pointLight.position.set(25, 50, 25);
-  scene.add(pointLight);
-
-  camera.position.z = 6;
-
-  const mouse = new THREE.Vector2();
-  const target = new THREE.Vector2();
-
-  document.addEventListener('mousemove', (event) => {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  });
-
-  function animate() {
-    requestAnimationFrame(animate);
-
-    target.lerp(mouse, 0.1);
-
-    icosahedron.position.x = target.x * 3;
-    icosahedron.position.y = target.y * 2;
-
-    icosahedron.rotation.x += 0.01;
-    icosahedron.rotation.y += 0.01;
-
-    const time = Date.now() * 0.001;
-    sparkles.forEach((sparkle, i) => {
-      const angle = (i / sparkles.length) * Math.PI * 2 + time;
-      const radius = 1.5;
-
-      sparkle.position.x = icosahedron.position.x + Math.cos(angle) * radius;
-      sparkle.position.y = icosahedron.position.y + Math.sin(angle) * radius;
-      sparkle.rotation.x += 0.01;
-      sparkle.rotation.z += 0.01;
+    const sparkles = [];
+    const sparkleGeometry = new THREE.SphereGeometry(0.05, 8, 8);
+    const sparkleMaterial = new THREE.MeshPhongMaterial({
+      color: 0xffffff,
+      emissive: 0xffffff,
+      emissiveIntensity: 0.5
     });
 
-    renderer.render(scene, camera);
-  }
+    for(let i = 0; i < 30; i++) {
+      const sparkle = new THREE.Mesh(sparkleGeometry, sparkleMaterial);
+      const radius = 3;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.random() * Math.PI;
 
-  window.addEventListener('resize', () => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+      sparkle.position.x = radius * Math.sin(phi) * Math.cos(theta);
+      sparkle.position.y = radius * Math.sin(phi) * Math.sin(theta);
+      sparkle.position.z = radius * Math.cos(phi);
 
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
+      sparkle.scale.setScalar(Math.random() * 0.5 + 0.5);
+      sparkle.userData = {
+        speed: Math.random() * 0.02 + 0.01,
+        offset: Math.random() * Math.PI * 2
+      };
 
-    renderer.setSize(width, height);
-  });
+      scene.add(sparkle);
+      sparkles.push(sparkle);
+    }
 
-  // Intersection Observer for scroll animations
-  const sections = document.querySelectorAll('.section');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0xffffff, 1);
+    pointLight.position.set(25, 50, 25);
+    scene.add(pointLight);
+
+    camera.position.z = 6;
+
+    const mouse = new THREE.Vector2();
+    const target = new THREE.Vector2();
+
+    document.addEventListener('mousemove', (event) => {
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     });
-  }, { threshold: 0.1 });
 
-  sections.forEach(section => observer.observe(section));
+    function animate() {
+      requestAnimationFrame(animate);
 
-  animate();
-</script>
+      target.lerp(mouse, 0.1);
+
+      icosahedron.position.x = target.x * 3;
+      icosahedron.position.y = target.y * 2;
+
+      icosahedron.rotation.x += 0.01;
+      icosahedron.rotation.y += 0.01;
+
+      const time = Date.now() * 0.001;
+      sparkles.forEach((sparkle, i) => {
+        const angle = (i / sparkles.length) * Math.PI * 2 + time;
+        const radius = 1.5;
+
+        sparkle.position.x = icosahedron.position.x + Math.cos(angle) * radius;
+        sparkle.position.y = icosahedron.position.y + Math.sin(angle) * radius;
+        sparkle.rotation.x += 0.01;
+        sparkle.rotation.z += 0.01;
+      });
+
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener('resize', () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(width, height);
+    });
+
+    animate();
+  </script>
 </body>
 </html>
